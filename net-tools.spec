@@ -1,6 +1,6 @@
 Name:          net-tools
 Version:       2.0
-Release:       0.53
+Release:       0.54
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
