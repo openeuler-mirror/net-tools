@@ -1,12 +1,10 @@
-%global checkout 20160912git
-
 Name:          net-tools
 Version:       2.0
 Release:       0.53
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
-Source0:       net-tools-%{version}.%{checkout}.tar.xz
+Source0:       net-tools-115f1af2494ded1fcd21c8419d5e289bc4df380f.tar.xz
 Source1:       net-tools-config.h
 Source2:       net-tools-config.make
 Source3:       ether-wake.c
@@ -113,6 +111,12 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
+* Tue Dec 31 2019 openEuler Buildteam <buildteam@openeuler.org> - 2.0-0.54
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:optimization the spec
+
 * Wed Sep 11 2019 openEuler Buildteam <buildteam@openeuler.org> - 2.0-0.53
 - Package init
 
