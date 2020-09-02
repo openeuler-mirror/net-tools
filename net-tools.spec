@@ -111,7 +111,7 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
-*Sep 2 2020 zengwefeng<zwfeng@huawei.com> - 2.0-0.55
+*Wed Sep 2 2020 zengwefeng<zwfeng@huawei.com> - 2.0-0.55
 - Type:NA
 - ID:NA
 - SUG:NA
