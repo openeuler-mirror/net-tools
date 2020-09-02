@@ -1,6 +1,6 @@
 Name:          net-tools
 Version:       2.0
-Release:       0.54
+Release:       0.55
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
@@ -111,6 +111,12 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
+*Sep 2 2020 zengwefeng<zwfeng@huawei.com> - 2.0-0.55
+- Type:NA
+- ID:NA
+- SUG:NA
+- DESC:add yaml file
+
 * Tue Dec 31 2019 openEuler Buildteam <buildteam@openeuler.org> - 2.0-0.54
 - Type:bugfix
 - ID:NA
