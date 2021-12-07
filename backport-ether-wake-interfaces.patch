@@ -156,10 +156,10 @@ diff -up net-tools-2.0/Makefile.interfaces net-tools-2.0/Makefile
 +++ net-tools-2.0/Makefile	2015-09-15 18:04:06.273668275 +0200
 @@ -193,6 +193,9 @@ ipmaddr:	$(NET_LIB) ipmaddr.o
  mii-tool:	$(NET_LIB) mii-tool.o
- 		$(CC) $(CFLAGS) $(LDFLAGS) -o $@ mii-tool.o $(NLIB)
+ 		$(CC) $(CFLAGS) $(LDFLAGS) -o $@ mii-tool.o $(NLIB) $(LDLIBS)
  
 +ether-wake:	$(NET_LIB) ether-wake.o
-+		$(CC) $(CFLAGS) $(LDFLAGS) -o ether-wake ether-wake.o $(NLIB)
++		$(CC) $(CFLAGS) $(LDFLAGS) -o ether-wake ether-wake.o $(NLIB) $(LDLIBS)
 +
  installbin:
  	@echo
