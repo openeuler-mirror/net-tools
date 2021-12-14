@@ -1,10 +1,10 @@
 Name:          net-tools
-Version:       2.0
-Release:       0.55
+Version:       2.10
+Release:       1
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
-Source0:       net-tools-115f1af2494ded1fcd21c8419d5e289bc4df380f.tar.xz
+source0:       https://sourceforge.net/projects/net-tools/files/%{name}-%{version}.tar.xz
 Source1:       net-tools-config.h
 Source2:       net-tools-config.make
 Source3:       ether-wake.c
@@ -15,13 +15,9 @@ Source7:       iptunnel.8
 Source8:       ipmaddr.8
 Source9:       arp-ethers.service
 
-Patch1:        net-tools-cycle.patch
-Patch2:        net-tools-man.patch
-Patch3:        net-tools-linux48.patch
-Patch20:       ether-wake-interfaces.patch
-Patch21:       net-tools-ifconfig-EiB.patch
-Patch22:       net-tools-timer-man.patch
-Patch23:       net-tools-interface-name-len.patch
+Patch1:        backport-net-tools-cycle.patch
+Patch2:        backport-net-tools-man.patch
+Patch3:        backport-ether-wake-interfaces.patch
 
 BuildRequires: bluez-libs-devel gettext, libselinux libselinux-devel systemd gcc
 %{?systemd_requires}
@@ -35,7 +31,7 @@ and have been moved to net-tools-deprecated.
 %package_help
 
 %prep
-%setup -q -c
+%setup -q
 cp %SOURCE1 ./config.h
 cp %SOURCE2 ./config.make
 cp %SOURCE3 .
@@ -46,11 +42,7 @@ cp %SOURCE7 ./man/en_US
 cp %SOURCE8 ./man/en_US
 %patch1 -p1 -b .cycle
 %patch2 -p1 -b .man
-%patch3 -p1 -b .linux48
-%patch20 -p1 -b .interfaces
-%patch21 -p1 -b .ifconfig-EiB
-%patch22 -p1 -b .timer-man
-%patch23 -p1 -b .interface-name-len
+%patch3 -p1 -b .interfaces
 touch ./config.h
 
 %build
@@ -111,7 +103,13 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
-*Wed Sep 2 2020 zengwefeng<zwfeng@huawei.com> - 2.0-0.55
+* Tue Dec 07 2021 gaihuiying<gaihuiying1@huawei.com> - 2.10-1
+- Type:requirement
+- ID:NA
+- SUG:NA
+- DESC:update net-tools to 2.10
+
+* Wed Sep 2 2020 zengwefeng<zwfeng@huawei.com> - 2.0-0.55
 - Type:NA
 - ID:NA
 - SUG:NA
