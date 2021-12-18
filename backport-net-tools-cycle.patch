@@ -1,6 +1,6 @@
-diff -up net-tools-2.0/lib/interface.c.cycle net-tools-2.0/lib/interface.c
---- net-tools-2.0/lib/interface.c.cycle	2016-02-15 16:54:18.000000000 +0100
-+++ net-tools-2.0/lib/interface.c	2016-03-30 09:58:18.247891588 +0200
+diff -up net-tools-2.10/lib/interface.c.cycle net-tools-2.10/lib/interface.c
+--- net-tools-2.10/lib/interface.c.cycle	2016-02-15 16:54:18.000000000 +0100
++++ net-tools-2.10/lib/interface.c	2016-03-30 09:58:18.247891588 +0200
 @@ -93,6 +93,7 @@ int if_list_all = 0;	/* do we have reque
  static struct interface *int_list, *int_last;
  
@@ -161,9 +161,9 @@ diff -up net-tools-2.0/lib/interface.c.cycle net-tools-2.0/lib/interface.c
      fclose(fh);
      return err;
  }
-diff -up net-tools-2.0/man/en_US/netstat.8.cycle net-tools-2.0/man/en_US/netstat.8
---- net-tools-2.0/man/en_US/netstat.8.cycle	2016-02-15 16:54:18.000000000 +0100
-+++ net-tools-2.0/man/en_US/netstat.8	2016-03-30 09:58:18.241891637 +0200
+diff -up net-tools-2.10/man/en_US/netstat.8.cycle net-tools-2.10/man/en_US/netstat.8
+--- net-tools-2.10/man/en_US/netstat.8.cycle	2016-02-15 16:54:18.000000000 +0100
++++ net-tools-2.10/man/en_US/netstat.8	2016-03-30 09:58:18.241891637 +0200
 @@ -36,6 +36,7 @@ netstat \- Print network connections, ro
  .RB [ \-\-verbose | \-v ]
  .RB [ \-\-continuous | \-c]
@@ -247,9 +247,9 @@ diff -up net-tools-2.0/man/en_US/netstat.8.cycle net-tools-2.0/man/en_US/netstat
  .P
  .SH OUTPUT
  .P
-diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
---- net-tools-2.0/netstat.c.cycle	2016-02-15 16:54:18.000000000 +0100
-+++ net-tools-2.0/netstat.c	2016-03-30 10:04:07.617171984 +0200
+diff -up net-tools-2.10/netstat.c.cycle net-tools-2.10/netstat.c
+--- net-tools-2.10/netstat.c.cycle	2016-02-15 16:54:18.000000000 +0100
++++ net-tools-2.10/netstat.c	2016-03-30 10:04:07.617171984 +0200
 @@ -115,8 +115,8 @@
  #endif
  
@@ -431,9 +431,9 @@ diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
      }
      if (flag_exp < 2) {
  	ife_short = 1;
--	printf(_("Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg\n"));
+-	printf(_("Iface             MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg\n"));
 +	if(!(count % 8))
-+	    printf(_("Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg\n"));
++	    printf(_("Iface             MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg\n"));
      }
  
 -    if (for_all_interfaces(do_if_print, &flag_all) < 0) {
@@ -458,17 +458,17 @@ diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
  }
  
 @@ -1915,9 +2045,10 @@ static void usage(int rc)
- {
-     fprintf(stderr, _("usage: netstat [-vWeenNcCF] [<Af>] -r         netstat {-V|--version|-h|--help}\n"));
-     fprintf(stderr, _("       netstat [-vWnNcaeol] [<Socket> ...]\n"));
--    fprintf(stderr, _("       netstat { [-vWeenNac] -i | [-cnNe] -M | -s [-6tuw] }\n\n"));
-+    fprintf(stderr, _("       netstat { [-vWeenNac] -I[<Iface>] | [-veenNac] -i | [-cnNe] -M | -s [-6tuw] } [delay]\n\n"));
+     FILE *fp = rc ? stderr : stdout;
+     fprintf(fp, _("usage: netstat [-vWeenNcCF] [<Af>] -r         netstat {-V|--version|-h|--help}\n"));
+     fprintf(fp, _("       netstat [-vWnNcaeol] [<Socket> ...]\n"));
+-    fprintf(fp, _("       netstat { [-vWeenNac] -i | [-cnNe] -M | -s [-6tuw] }\n\n"));
++    fprintf(fp, _("       netstat { [-vWeenNac] -I[<Iface>] | [-veenNac] -i | [-cnNe] -M | -s [-6tuw] } [delay]\n\n"));
  
-     fprintf(stderr, _("        -r, --route              display routing table\n"));
-+    fprintf(stderr, _("        -I, --interfaces=<Iface> display interface table for <Iface>\n"));
-     fprintf(stderr, _("        -i, --interfaces         display interface table\n"));
-     fprintf(stderr, _("        -g, --groups             display multicast group memberships\n"));
-     fprintf(stderr, _("        -s, --statistics         display networking statistics (like SNMP)\n"));
+     fprintf(fp, _("        -r, --route              display routing table\n"));
++    fprintf(fp, _("        -I, --interfaces=<Iface> display interface table for <Iface>\n"));
+     fprintf(fp, _("        -i, --interfaces         display interface table\n"));
+     fprintf(fp, _("        -g, --groups             display multicast group memberships\n"));
+     fprintf(fp, _("        -s, --statistics         display networking statistics (like SNMP)\n"));
 @@ -1957,11 +2088,12 @@ int main
   (int argc, char *argv[]) {
      int i;
@@ -528,7 +528,7 @@ diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
  	}
  #else
  	ENOSUPP("netstat", "FW_MASQUERADE");
-@@ -2182,15 +2327,16 @@ int main
+@@ -2182,16 +2327,17 @@ int main
          if (!afname[0])
              safe_strncpy(afname, DFLT_AF, sizeof(afname));
  
@@ -539,6 +539,7 @@ diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
 +            i = parsesnmp(flag_raw, flag_tcp, flag_udp, flag_sctp);
  #else
              ENOSUPP("netstat", "AF INET");
+             exit(1);
  #endif
          } else if(!strcmp(afname, "inet6")) {
  #if HAVE_AFINET6
@@ -546,7 +547,7 @@ diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
 +            i = parsesnmp6(flag_raw, flag_tcp, flag_udp);
  #else
              ENOSUPP("netstat", "AF INET6");
- #endif
+             exit(1);
 @@ -2198,7 +2344,11 @@ int main
            printf(_("netstat: No statistics support for specified address family: %s\n"), afname);
            exit(1);
@@ -589,9 +590,9 @@ diff -up net-tools-2.0/netstat.c.cycle net-tools-2.0/netstat.c
      }
      return (i);
  }
-diff -up net-tools-2.0/statistics.c.cycle net-tools-2.0/statistics.c
---- net-tools-2.0/statistics.c.cycle	2016-02-15 16:54:18.000000000 +0100
-+++ net-tools-2.0/statistics.c	2016-03-30 09:58:18.238891661 +0200
+diff -up net-tools-2.10/statistics.c.cycle net-tools-2.10/statistics.c
+--- net-tools-2.10/statistics.c.cycle	2016-02-15 16:54:18.000000000 +0100
++++ net-tools-2.10/statistics.c	2016-03-30 09:58:18.238891661 +0200
 @@ -527,7 +527,7 @@ static void process_fd2(FILE *f, const c
      }
  }
