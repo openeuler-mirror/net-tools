@@ -1,0 +1,30 @@
+From 4030929bb6f3ee6f465c76869d7a49424df45d9e Mon Sep 17 00:00:00 2001
+From: Mike Frysinger <vapier@gentoo.org>
+Date: Sun, 12 Dec 2021 12:05:42 -0500
+Subject: [PATCH] interface: change pointopoint short flag from P to p
+
+The P short flag was used by IFF_POINTOPOINT and IFF_PROMISC.  Change
+IFF_POINTOPOINT to use p to avoid confusion, and because IFF_PROMISC
+is probably more common for people to check.
+
+URL: https://sourceforge.net/p/net-tools/bugs/45
+---
+ lib/interface.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/interface.c b/lib/interface.c
+index 4c33325..ef28dec 100644
+--- a/lib/interface.c
++++ b/lib/interface.c
+@@ -693,7 +693,7 @@ void ife_print_short(struct interface *ptr)
+     if (ptr->flags & IFF_NOARP)
+ 	printf("O");
+     if (ptr->flags & IFF_POINTOPOINT)
+-	printf("P");
++	printf("p");
+     if (ptr->flags & IFF_SLAVE)
+ 	printf("s");
+     if (ptr->flags & IFF_MASTER)
+-- 
+2.27.0
+
