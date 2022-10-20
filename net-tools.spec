@@ -109,7 +109,7 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 - Type:requirement
 - ID:NA
 - SUG:NA
-- DESC:p to P
+- DESC:change pointtopoint short flag from P to p
 
 * Tue Dec 07 2021 gaihuiying<gaihuiying1@huawei.com> - 2.10-1
 - Type:requirement
