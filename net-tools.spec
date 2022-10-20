@@ -1,6 +1,6 @@
 Name:          net-tools
 Version:       2.0
-Release:       0.54
+Release:       0.55
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
@@ -22,6 +22,7 @@ Patch20:       ether-wake-interfaces.patch
 Patch21:       net-tools-ifconfig-EiB.patch
 Patch22:       net-tools-timer-man.patch
 Patch23:       net-tools-interface-name-len.patch
+Patch24:       backport-interface-change-pointopoint-short-flag-from-P-to-p.patch
 
 BuildRequires: bluez-libs-devel gettext, libselinux libselinux-devel systemd gcc
 %{?systemd_requires}
@@ -51,6 +52,7 @@ cp %SOURCE8 ./man/en_US
 %patch21 -p1 -b .ifconfig-EiB
 %patch22 -p1 -b .timer-man
 %patch23 -p1 -b .interface-name-len
+%patch24 -p1
 touch ./config.h
 
 %build
@@ -111,6 +113,12 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
+* Thu Oct 20 2022 konglidong <konglidong@uniontech.com> - 2.0-0.55
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:interface: change pointopoint short flag from P to p
+
 * Tue Dec 31 2019 openEuler Buildteam <buildteam@openeuler.org> - 2.0-0.54
 - Type:bugfix
 - ID:NA
