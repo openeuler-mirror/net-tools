@@ -1,6 +1,6 @@
 Name:          net-tools
 Version:       2.10
-Release:       2
+Release:       3
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
@@ -19,6 +19,7 @@ Patch1:        backport-net-tools-cycle.patch
 Patch2:        backport-net-tools-man.patch
 Patch3:        backport-ether-wake-interfaces.patch
 Patch4:        backport-change-pointopoint-short-flag-from-P-to-p.patch
+Patch5:        fix-ifconfig-display-error-when-the-length-of-interface-name-is-15.patch
 
 BuildRequires: bluez-libs-devel gettext, libselinux libselinux-devel systemd gcc
 %{?systemd_requires}
@@ -45,6 +46,7 @@ cp %SOURCE8 ./man/en_US
 %patch2 -p1 -b .man
 %patch3 -p1 -b .interfaces
 %patch4 -p1
+%patch5 -p1
 touch ./config.h
 
 %build
@@ -105,6 +107,12 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
+* Mon Dec 19 2022 eaglegai <eaglegai@163.com> - 2.10-3
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:fix ifconfig display error when the length of interface name is 15
+
 * Thu Oct 20 2022 wangye<wangye91@h-partners.com> - 2.10-2
 - Type:requirement
 - ID:NA
