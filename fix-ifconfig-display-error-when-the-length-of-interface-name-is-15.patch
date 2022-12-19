@@ -1,0 +1,28 @@
+From bf7cc74cd048bfd9d1fb9474e94a915cc9e86fdb Mon Sep 17 00:00:00 2001
+From: eaglegai <eaglegai@163.com>
+Date: Fri, 2 Dec 2022 09:47:06 +0800
+Subject: [PATCH] fix ifconfig display error when the length of interface name is 15
+
+Signed-off-by: eaglegai <eaglegai@163.com>
+---
+ lib/interface.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/lib/interface.c b/lib/interface.c
+index baa9a9a..f321340 100644
+--- a/lib/interface.c
++++ b/lib/interface.c
+@@ -248,8 +248,10 @@ static const char *get_name(char **namep, const char *p)
+ 	}
+ 	*name++ = *p++;
+ 	count++;
+-	if (count == (IFNAMSIZ-1))
++	if (count == (IFNAMSIZ-1)) {
++              p++;
+     	      break;
++        }
+     }
+     *name++ = '\0';
+     return p;
+-- 
+2.33.0
