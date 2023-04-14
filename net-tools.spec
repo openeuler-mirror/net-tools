@@ -1,6 +1,6 @@
 Name:          net-tools
 Version:       2.10
-Release:       3
+Release:       4
 Summary:       Important Programs for Networking
 License:       GPLv2+
 URL:           https://sourceforge.net/projects/net-tools/
@@ -54,7 +54,7 @@ export CFLAGS="${RPM_OPT_FLAGS} -fpie"
 export LDFLAGS="${RPM_LD_FLAGS} -pie -Wl,-z,now"
 make
 make ether-wake
-gcc ${RPM_OPT_FLAGS} ${RPM_LD_FLAGS} -o mii-diag mii-diag.c
+$CC ${RPM_OPT_FLAGS} ${RPM_LD_FLAGS} -o mii-diag mii-diag.c
 
 %install
 mv man/de_DE man/de
@@ -107,6 +107,9 @@ touch %{buildroot}%{_unitdir}/arp-ethers.service
 %exclude %{_mandir}/pt/man5
 
 %changelog
+* Fri Apr 14 2023 Xiaoya Huang <huangxiaoya@iscas.ac.cn> - 2.10-4
+- Fix CC compiler support
+
 * Mon Dec 19 2022 eaglegai <eaglegai@163.com> - 2.10-3
 - Type:bugfix
 - ID:NA
